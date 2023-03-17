@@ -1,0 +1,12 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+avaj-launcher,com.avajlauncher,IncorrectAircraftType,0,4,0,0,0,2,0,1,0,1
+avaj-launcher,com.avajlauncher,WeatherTower,1,7,0,0,1,3,1,2,1,2
+avaj-launcher,com.avajlauncher,App,4,0,0,0,2,0,1,0,1,0
+avaj-launcher,com.avajlauncher,Aircraft,0,16,0,0,0,7,0,2,0,2
+avaj-launcher,com.avajlauncher,Tower,3,3,0,0,3,1,3,1,3,1
+avaj-launcher,com.avajlauncher,WeatherProvider,0,41,0,0,0,8,0,3,0,3
+avaj-launcher,com.avajlauncher,Baloon,0,129,1,4,0,35,1,8,0,5
+avaj-launcher,com.avajlauncher,Helicopter,0,129,1,4,0,35,1,8,0,5
+avaj-launcher,com.avajlauncher,JetPlane,0,129,1,4,0,35,1,8,0,5
+avaj-launcher,com.avajlauncher,AircraftFactory,0,55,0,4,0,8,0,6,0,3
+avaj-launcher,com.avajlauncher,Coordinates,2,24,1,1,1,9,1,4,0,4
