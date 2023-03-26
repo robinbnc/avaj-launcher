@@ -1,6 +1,6 @@
-package com.avajlauncher;
+package com.avajlauncher.model.aircraft;
 
-import com.avajlauncher.Coordinates;
+import com.avajlauncher.model.coordinates.Coordinates;
 
 public class Aircraft {
 	protected long			id;
@@ -15,5 +15,24 @@ public class Aircraft {
 
 	void setCoordinates(Coordinates p_coordinates) {
 		this.coordinates = p_coordinates;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		Aircraft that = (Aircraft) obj;
+		return (id == that.id
+			&& this.name.equals(that.name)
+			&& this.coordinates.equals(that.coordinates)
+		);
+	}
+
+	public String getIndentifier() {
+		return ("");
+	}
+	// Delete
+	public void printData() {
+		System.out.println("id: " + id + " name: " + name + " longitude " + coordinates.getLongitude() + " latitude " + coordinates.getLatitude() + " height " + coordinates.getHeight());
 	}
 }

@@ -1,12 +1,7 @@
-package com.avajlauncher;
+package com.avajlauncher.model.aircraft;
 
-import com.avajlauncher.Baloon;
-import com.avajlauncher.Aircraft;
-import com.avajlauncher.JetPlane;
-import com.avajlauncher.Helicopter;
-import com.avajlauncher.Coordinates;
-import com.avajlauncher.AircraftFactory;
-import com.avajlauncher.IncorrectAircraftType;
+import com.avajlauncher.model.coordinates.Coordinates;
+import com.avajlauncher.exceptions.IncorrectAircraftType;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,7 +13,7 @@ class AircraftFactoryTest {
 	@Test
 	void testBaloonCreation() {
 		try {
-			Aircraft testBaloon =
+			Flyable testBaloon =
 				AircraftFactory.getInstance()
 				.newAircraft("Baloon", "Baloon", new Coordinates(1, 1, 1));
 			assertTrue(testBaloon instanceof Baloon);
@@ -31,7 +26,7 @@ class AircraftFactoryTest {
 	@Test
 	void testJetPlaneCreation() {
 		try {
-			Aircraft testJetPlane =
+			Flyable testJetPlane =
 				AircraftFactory.getInstance()
 				.newAircraft("JetPlane", "JetPlane", new Coordinates(1, 1, 1));
 			assertTrue(testJetPlane instanceof JetPlane);
@@ -45,7 +40,7 @@ class AircraftFactoryTest {
 	@Test
 	void testHelicopterCreation() {
 		try {
-			Aircraft testHelicopter = 
+			Flyable testHelicopter = 
 				AircraftFactory.getInstance()
 				.newAircraft("Helicopter", "Helicopter", new Coordinates(1, 1, 1));
 			assertTrue(testHelicopter instanceof Helicopter);

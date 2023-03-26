@@ -1,6 +1,6 @@
-package com.avajlauncher;
+package com.avajlauncher.model.aircraft;
 
-import com.avajlauncher.WeatherTower;
+import com.avajlauncher.model.tower.WeatherTower;
 
 public interface Flyable {
 	void updateConditions();

@@ -1,14 +1,11 @@
-package com.avajlauncher;
+package com.avajlauncher.model.aircraft;
 
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Collections;
-import static java.lang.System.out;
 
-import com.avajlauncher.Flyable;
-import com.avajlauncher.Aircraft;
-import com.avajlauncher.Coordinates;
-import com.avajlauncher.WeatherProvider;
+import com.avajlauncher.model.coordinates.Coordinates;
+import com.avajlauncher.model.tower.WeatherTower;
 
 public class Helicopter extends Aircraft implements Flyable {
 	private WeatherTower weatherTower;
@@ -26,7 +23,8 @@ public class Helicopter extends Aircraft implements Flyable {
 		super(p_id, p_name, p_coordinates);
 	}
 
-	public void updateConditions(){
+	public void updateConditions() {
+		this.printWeatherMessage();
 		switch (weatherTower.getWeather(this.coordinates))
 		{
 			case "RAIN":
@@ -57,8 +55,18 @@ public class Helicopter extends Aircraft implements Flyable {
 					this.coordinates.getHeight() + 2
 				));
 				break ;
-			
 		}
+		if (this.isLanding()) {
+			this.printLanding();
+			weatherTower.unregister(this);
+		}
+	}
+
+	private void printWeatherMessage() {
+		System.out.println(
+			this.getIndentifier() + ": "
+			+ this.getWeatherMessage()
+		);
 	}
 
 	public String getWeatherMessage() {
@@ -67,6 +75,21 @@ public class Helicopter extends Aircraft implements Flyable {
 				weatherTower.getWeather(this.coordinates)
 			)
 		);
+	}
+
+	private boolean isLanding() {
+		return (this.coordinates.getHeight() <= 0);
+	}
+
+	private void printLanding() {
+		System.out.println(
+			this.getIndentifier() + " Landing."
+		);
+	}
+
+	@Override
+	public String getIndentifier() {
+		return ("Helicopter" + "#" + this.name + "(" + this.id + ")");
 	}
 
 	public void registerTower(WeatherTower p_weatherTower) {

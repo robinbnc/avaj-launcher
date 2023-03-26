@@ -68,7 +68,7 @@
 <file name="/mnt/nfs/homes/rbicanic/Documents/avaj-launcher/src/test/java/com/avajlauncher/model/coordinates/CoordinatesTest.java">
 <error line="1" severity="error" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
 <error line="1" column="1" severity="error" message="Missing package declaration." source="com.puppycrawl.tools.checkstyle.checks.coding.PackageDeclarationCheck"/>
-<error line="1" column="8" severity="error" message="Unused import - com.avajlauncher.coordinates." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
+<error line="1" column="8" severity="error" message="Unused import - com.avajlauncher.model.coordinates." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
 <error line="3" column="1" severity="error" message="Extra separation in import group before &apos;org.junit.jupiter.api.Test&apos;" source="com.puppycrawl.tools.checkstyle.checks.imports.ImportOrderCheck"/>
 <error line="4" column="1" severity="error" message="&apos;org.junit.jupiter.api.Assertions.assertEquals&apos; should be separated from previous imports." source="com.puppycrawl.tools.checkstyle.checks.imports.ImportOrderCheck"/>
 <error line="5" column="1" severity="error" message="Wrong order for &apos;org.junit.jupiter.api.ParameterizedTest&apos; import." source="com.puppycrawl.tools.checkstyle.checks.imports.ImportOrderCheck"/>

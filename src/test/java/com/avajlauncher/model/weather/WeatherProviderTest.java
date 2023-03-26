@@ -1,9 +1,7 @@
-package com.avajlauncher;
+package com.avajlauncher.model.weather;
 
-import com.avajlauncher.WeatherProvider;
-import com.avajlauncher.Coordinates;
+import com.avajlauncher.model.coordinates.Coordinates;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;

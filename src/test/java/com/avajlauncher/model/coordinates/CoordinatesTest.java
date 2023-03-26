@@ -1,6 +1,4 @@
-package com.avajlauncher;
-
-import com.avajlauncher.Coordinates;
+package com.avajlauncher.model.coordinates;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

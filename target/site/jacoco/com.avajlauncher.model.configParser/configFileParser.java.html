@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>configFileParser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avaj-launcher</a> &gt; <a href="index.source.html" class="el_package">com.avajlauncher.model.configParser</a> &gt; <span class="el_source">configFileParser.java</span></div><h1>configFileParser.java</h1><pre class="source lang-java linenums">package com.avajlauncher.model.configParser;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.avajlauncher.model.coordinates.Coordinates;
+
+<span class="fc" id="L8">public class configFileParser {</span>
+	private String line;
+	private Map&lt;String, String&gt;	tokenizedLine;
+
+
+	public void setLine(final String p_line) {
+<span class="fc" id="L14">		this.line = p_line;</span>
+<span class="fc" id="L15">	}</span>
+	
+	public void tokenizeLine() {
+		// check error on line
+<span class="fc" id="L19">		String[] splittedLine = this.line.split(&quot;\\s+&quot;);</span>
+<span class="fc" id="L20">		this.tokenizedLine = new HashMap&lt;String, String&gt;();</span>
+
+<span class="fc" id="L22">		this.tokenizedLine.put(&quot;type&quot;, splittedLine[0]);</span>
+<span class="fc" id="L23">		this.tokenizedLine.put(&quot;name&quot;, splittedLine[1]);</span>
+<span class="fc" id="L24">		this.tokenizedLine.put(&quot;longitude&quot;, splittedLine[2]);</span>
+<span class="fc" id="L25">		this.tokenizedLine.put(&quot;latitude&quot;, splittedLine[3]);</span>
+<span class="fc" id="L26">		this.tokenizedLine.put(&quot;height&quot;, splittedLine[4]);</span>
+<span class="fc" id="L27">	}</span>
+
+	public int getSimulationTime() {
+<span class="fc" id="L30">		return (Integer.parseInt(this.line));</span>
+	}
+
+	public String getAircraftType() {
+<span class="fc" id="L34">		return (this.tokenizedLine.get(&quot;type&quot;));</span>
+	}
+
+	public String getAircraftName() {
+<span class="fc" id="L38">		return (this.tokenizedLine.get(&quot;name&quot;));</span>
+	}
+
+	public Coordinates getAircraftCoordinates() {
+<span class="fc" id="L42">		return (new Coordinates(</span>
+<span class="fc" id="L43">				Integer.parseInt(this.tokenizedLine.get(&quot;longitude&quot;)),</span>
+<span class="fc" id="L44">				Integer.parseInt(this.tokenizedLine.get(&quot;latitude&quot;)),</span>
+<span class="fc" id="L45">				Integer.parseInt(this.tokenizedLine.get(&quot;height&quot;))</span>
+			)
+		);
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -1,6 +1,6 @@
-package com.avajlauncher;
+package com.avajlauncher.model.weather;
 
-import com.avajlauncher.Coordinates;
+import com.avajlauncher.model.coordinates.Coordinates;
 
 public class WeatherProvider {
 	private static String[] weather = {"RAIN", "FOG", "SUN", "SNOW"};

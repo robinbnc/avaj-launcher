@@ -1,7 +1,7 @@
-package com.avajlauncher;
+package com.avajlauncher.model.tower;
 
-import com.avajlauncher.Tower;
-import com.avajlauncher.Coordinates;
+import com.avajlauncher.model.coordinates.Coordinates;
+import com.avajlauncher.model.weather.WeatherProvider;
 
 public class WeatherTower extends Tower {
 	public String	getWeather(Coordinates p_coordinates) {
@@ -11,6 +11,6 @@ public class WeatherTower extends Tower {
 	}
 
 	public void	changeWeather() {
-
+		this.conditionChanged();
 	}
 } 

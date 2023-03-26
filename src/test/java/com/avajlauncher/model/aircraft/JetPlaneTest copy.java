@@ -1,9 +1,9 @@
-package com.avajlauncher;
+package com.avajlauncher.model.aircraft;
 
-import com.avajlauncher.JetPlane;
-import com.avajlauncher.Coordinates;
+import com.avajlauncher.model.coordinates.Coordinates;
+import com.avajlauncher.model.tower.WeatherTower;
 
-import org.junit.jupiter.api.Test;
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.assertTrue;

@@ -1,11 +1,11 @@
-package com.avajlauncher;
+package com.avajlauncher.model.coordinates;
 
 public class Coordinates {
-	private int	longitude;
-	private int	latitude;
-	private int	height;
+	protected int	longitude;
+	protected int	latitude;
+	protected int	height;
 
-	Coordinates(int	p_longitude, int p_latitude, int p_height) {
+	public Coordinates(int	p_longitude, int p_latitude, int p_height) {
 		if (p_height > 100) {
 			p_height = 100;
 		}
@@ -24,5 +24,16 @@ public class Coordinates {
 
 	public int	getHeight() {
 		return (this.height);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		Coordinates that = (Coordinates) obj;
+		return (longitude == that.longitude
+			&& latitude == that.latitude
+			&& height == that.height
+		);
 	}
 }

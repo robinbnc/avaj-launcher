@@ -1,8 +1,7 @@
-package com.avajlauncher;
+package com.avajlauncher.model.aircraft;
 
-import java.util.Map;
-import com.avajlauncher.*;
-
+import com.avajlauncher.model.coordinates.*;
+import com.avajlauncher.exceptions.IncorrectAircraftType;
 
 public class AircraftFactory {
 	private static AircraftFactory aircraftFactory = new AircraftFactory();
@@ -14,7 +13,7 @@ public class AircraftFactory {
 		return (aircraftFactory);
 	}
 
-	public Aircraft newAircraft(
+	public Flyable newAircraft(
 		String p_type,
 		String p_name,
 		Coordinates p_coordinates) throws IncorrectAircraftType

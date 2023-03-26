@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Baloon.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avaj-launcher</a> &gt; <a href="index.source.html" class="el_package">com.avajlauncher.model.aircraft</a> &gt; <span class="el_source">Baloon.java</span></div><h1>Baloon.java</h1><pre class="source lang-java linenums">package com.avajlauncher.model.aircraft;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collections;
+
+import com.avajlauncher.model.coordinates.Coordinates;
+import com.avajlauncher.model.tower.WeatherTower;
+
+public class Baloon extends Aircraft implements Flyable {
+	private WeatherTower	weatherTower;
+	private static final Map&lt;String, String&gt; weatherMessages;
+    static {
+<span class="fc" id="L14">		Map&lt;String, String&gt; aMap = new HashMap&lt;String, String&gt;();;</span>
+<span class="fc" id="L15">		aMap.put(&quot;RAIN&quot;, &quot;Damn you rain! You messed up my baloon.&quot;);</span>
+<span class="fc" id="L16">		aMap.put(&quot;FOG&quot;, &quot;I can't see anything. Too much Fog&quot;);</span>
+<span class="fc" id="L17">		aMap.put(&quot;SUN&quot;, &quot;Let's enjoy the good weather and take some pics.&quot;);</span>
+<span class="fc" id="L18">		aMap.put(&quot;SNOW&quot;, &quot;It's snowing. We're gonna crash.&quot;);</span>
+<span class="fc" id="L19">		weatherMessages = Collections.unmodifiableMap(aMap);</span>
+<span class="fc" id="L20">    }	</span>
+
+	public Baloon(long p_id, String p_name, Coordinates p_coordinates) {
+<span class="fc" id="L23">		super(p_id, p_name, p_coordinates);</span>
+<span class="fc" id="L24">	}</span>
+
+	public void updateConditions() {
+<span class="fc" id="L27">		this.printWeatherMessage();</span>
+<span class="fc bfc" id="L28" title="All 5 branches covered.">		switch (weatherTower.getWeather(this.coordinates))</span>
+		{
+			case &quot;RAIN&quot;:
+<span class="fc" id="L31">				this.setCoordinates(new Coordinates(</span>
+<span class="fc" id="L32">					this.coordinates.getLongitude(),</span>
+<span class="fc" id="L33">					this.coordinates.getLatitude(),</span>
+<span class="fc" id="L34">					this.coordinates.getHeight() - 5</span>
+				));
+<span class="fc" id="L36">				break ;</span>
+			case &quot;FOG&quot;:
+<span class="fc" id="L38">				this.setCoordinates(new Coordinates(</span>
+<span class="fc" id="L39">					this.coordinates.getLongitude(),</span>
+<span class="fc" id="L40">					this.coordinates.getLatitude(),</span>
+<span class="fc" id="L41">					this.coordinates.getHeight() - 3</span>
+				));
+<span class="fc" id="L43">				break ;</span>
+			case &quot;SNOW&quot;:
+<span class="fc" id="L45">				this.setCoordinates(new Coordinates(</span>
+<span class="fc" id="L46">					this.coordinates.getLongitude(),</span>
+<span class="fc" id="L47">					this.coordinates.getLatitude(),</span>
+<span class="fc" id="L48">					this.coordinates.getHeight() - 15</span>
+				));
+<span class="fc" id="L50">				break ;</span>
+			case &quot;SUN&quot;:
+<span class="fc" id="L52">				this.setCoordinates(new Coordinates(</span>
+<span class="fc" id="L53">					this.coordinates.getLongitude() + 2,</span>
+<span class="fc" id="L54">					this.coordinates.getLatitude(),</span>
+<span class="fc" id="L55">					this.coordinates.getHeight() + 4</span>
+				));
+				break ;
+		}
+<span class="fc bfc" id="L59" title="All 2 branches covered.">		if (this.isLanding()) {</span>
+<span class="fc" id="L60">			this.printLanding();</span>
+<span class="fc" id="L61">			weatherTower.unregister(this);</span>
+		}
+<span class="fc" id="L63">	}</span>
+
+	public void printWeatherMessage() {
+<span class="fc" id="L66">		System.out.println(</span>
+<span class="fc" id="L67">			&quot;Baloon&quot; + &quot;#&quot; + this.name + &quot;(&quot; + this.id + &quot;): &quot;</span>
+<span class="fc" id="L68">			+ this.getWeatherMessage()</span>
+		);
+<span class="fc" id="L70">	}</span>
+
+	public String getWeatherMessage() {
+<span class="fc" id="L73">		return (</span>
+<span class="fc" id="L74">			weatherMessages.get(</span>
+<span class="fc" id="L75">				weatherTower.getWeather(this.coordinates)</span>
+			)
+		);
+	}
+
+	public boolean isLanding() {
+<span class="fc bfc" id="L81" title="All 2 branches covered.">		return (this.coordinates.getHeight() &lt;= 0);</span>
+	}
+
+	public void printLanding() {
+<span class="fc" id="L85">		System.out.println(</span>
+<span class="fc" id="L86">			&quot;Baloon&quot; + &quot;#&quot; + this.name + &quot;(&quot; + this.id + &quot;) Landing.&quot;</span>
+		);
+<span class="fc" id="L88">	}</span>
+
+	public void registerTower(WeatherTower p_weatherTower) {
+<span class="fc" id="L91">		this.weatherTower = p_weatherTower;</span>
+<span class="fc" id="L92">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

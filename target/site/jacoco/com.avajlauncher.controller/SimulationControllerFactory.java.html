@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SimulationControllerFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">avaj-launcher</a> &gt; <a href="index.source.html" class="el_package">com.avajlauncher.controller</a> &gt; <span class="el_source">SimulationControllerFactory.java</span></div><h1>SimulationControllerFactory.java</h1><pre class="source lang-java linenums">package com.avajlauncher.controller;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+import com.avajlauncher.exceptions.IncorrectAircraftType;
+import com.avajlauncher.model.aircraft.AircraftFactory;
+import com.avajlauncher.model.aircraft.Flyable;
+import com.avajlauncher.model.configFileParser.ConfigError;
+import com.avajlauncher.model.configFileParser.ConfigParser;
+import com.avajlauncher.model.tower.WeatherTower;
+
+public class SimulationControllerFactory {
+	private String				configFile;
+	private ConfigParser		configParser;
+	private ConfigError			configError;
+
+<span class="fc" id="L20">	public SimulationControllerFactory(String p_configFile) {</span>
+<span class="fc" id="L21">		this.configFile = p_configFile;</span>
+<span class="fc" id="L22">		this.configParser = new ConfigParser();</span>
+<span class="fc" id="L23">		this.configError = new ConfigError();</span>
+<span class="fc" id="L24">	}</span>
+
+	public SimulationController
+	newSimulationController()
+	throws Exception
+	{
+		try {
+<span class="fc" id="L31">			FileReader fileReader = this.openFile();</span>
+<span class="fc" id="L32">			BufferedReader reader = new BufferedReader(fileReader);</span>
+<span class="fc" id="L33">			WeatherTower weatherTower = new WeatherTower();</span>
+			SimulationController simulationController;
+	
+<span class="fc" id="L36">			simulationController =</span>
+<span class="fc" id="L37">				new SimulationController(this.getSimulationTime(reader), weatherTower);</span>
+<span class="fc" id="L38">			this.registerAllAircraftInTower(reader, weatherTower);</span>
+<span class="fc" id="L39">			this.closeReader(reader);</span>
+<span class="fc" id="L40">			return (simulationController);</span>
+		}
+<span class="fc" id="L42">		catch (Exception e) {</span>
+<span class="fc" id="L43">			throw e;</span>
+		}
+ 	}
+
+	private FileReader openFile() throws FileNotFoundException {
+		try {
+<span class="fc" id="L49">			FileReader fileReader = new FileReader(this.configFile);</span>
+<span class="fc" id="L50">			return (fileReader);</span>
+		}
+<span class="fc" id="L52">		catch (FileNotFoundException e) {</span>
+<span class="fc" id="L53">			throw e;</span>
+		}
+	}
+
+	private int
+	getSimulationTime(final BufferedReader p_reader)
+	throws Exception
+	{
+		try {
+<span class="fc" id="L62">			String line = p_reader.readLine();</span>
+			
+<span class="fc" id="L64">			this.configError.setLine(line);</span>
+<span class="fc bfc" id="L65" title="All 4 branches covered.">			if (line == null || !this.configError.isSimulationTimeLineCorrect()) {</span>
+<span class="fc" id="L66">				throw new Exception(&quot;Error: Incorrect simulation time line.&quot;);</span>
+				// personal exception
+			}
+<span class="fc" id="L69">			this.configParser.setLine(line);</span>
+<span class="fc" id="L70">			return (this.configParser.getSimulationTime());</span>
+		}
+<span class="nc" id="L72">		catch (IOException e) {</span>
+<span class="nc" id="L73">			this.closeReader(p_reader);</span>
+<span class="nc" id="L74">			throw e;</span>
+		}
+	}
+
+	private void
+	registerAllAircraftInTower(final BufferedReader p_reader, WeatherTower p_weatherTower)
+	throws Exception
+	{
+		try {
+<span class="fc" id="L83">			String line = p_reader.readLine();</span>
+			
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">			if (line == null) {</span>
+				// personal exception
+<span class="nc" id="L87">				throw new Exception(&quot;Error: No aircraft Provided.&quot;);</span>
+			}
+<span class="fc bfc" id="L89" title="All 2 branches covered.">			while (line != null) {</span>
+<span class="fc" id="L90">				this.configError.setLine(line);</span>
+<span class="fc" id="L91">				this.configError.tokenizeAirCraftLine();</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">				if (!this.configError.isAircraftLineCorrect()) {</span>
+					// personal exception
+<span class="fc" id="L94">					throw new Exception(&quot;Error: Incorrect Aircraft line.&quot;);</span>
+				}
+<span class="fc" id="L96">				this.configParser.setLine(line);</span>
+<span class="fc" id="L97">				this.configParser.tokenizeAirCraftLine();</span>
+<span class="fc" id="L98">				this.registerAircraftInTower(p_weatherTower);</span>
+<span class="fc" id="L99">				line = p_reader.readLine();</span>
+			}
+<span class="fc" id="L101">		}</span>
+<span class="fc" id="L102">		catch (Exception e) {</span>
+<span class="fc" id="L103">			this.closeReader(p_reader);</span>
+<span class="fc" id="L104">			throw e;</span>
+		} 
+<span class="fc" id="L106">	}</span>
+
+	private void
+	registerAircraftInTower(WeatherTower p_weatherTower)
+	throws IncorrectAircraftType
+	{
+		try {
+<span class="fc" id="L113">			Flyable newAircraft =</span>
+<span class="fc" id="L114">				AircraftFactory.getInstance()</span>
+<span class="fc" id="L115">				.newAircraft(</span>
+<span class="fc" id="L116">					this.configParser.getAircraftType(),</span>
+<span class="fc" id="L117">					this.configParser.getAircraftName(),</span>
+<span class="fc" id="L118">					this.configParser.getAircraftCoordinates()</span>
+			);
+<span class="fc" id="L120">			p_weatherTower.register(newAircraft);</span>
+<span class="fc" id="L121">			newAircraft.registerTower(p_weatherTower);</span>
+<span class="fc" id="L122">		}</span>
+<span class="fc" id="L123">		catch (IncorrectAircraftType e) {</span>
+<span class="fc" id="L124">			throw e;</span>
+		}
+<span class="fc" id="L126">	}</span>
+
+	private void closeReader(final BufferedReader reader) {
+		try {
+<span class="fc" id="L130">			reader.close();</span>
+<span class="fc" id="L131">		}</span>
+<span class="nc" id="L132">		catch (IOException e) {</span>
+<span class="nc" id="L133">			System.out.println(e.getMessage());</span>
+<span class="nc" id="L134">			System.exit(1);</span>
+		}
+<span class="fc" id="L136">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
