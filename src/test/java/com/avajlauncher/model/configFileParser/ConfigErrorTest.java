@@ -28,6 +28,8 @@ class ConfigErrorTest {
 	@CsvSource({
 		"2147483649,false",
 		"-2147483649,false",
+		"12weurhbv,false",
+		"-weurhbv,false",
 	})
 	void isSimulationTimeValidInt_shouldReturn_false(String arg1, Boolean arg2) {
 		ConfigError parserTest = new ConfigError();
@@ -142,6 +144,8 @@ class ConfigErrorTest {
 	@CsvSource({
 		"Baloon B1 2147483649 67 14,false",
 		"JetPlane B1 -2147483649 16 1,false",
+		"JetPlane B1 qwer 16 1,false",
+		"JetPlane B1 2147483et 16 1,false",
 	})
 	void isLongitudeValidInt_shouldReturn_false(String arg1, Boolean arg2) {
 		ConfigError parserTest = new ConfigError();
@@ -155,6 +159,8 @@ class ConfigErrorTest {
 	@CsvSource({
 		"Baloon B1 67 2147483649 14,false",
 		"JetPlane B1 16 -2147483649 1,false",
+		"JetPlane B1 16 qwer 1,false",
+		"JetPlane B1 16 2147483et 1,false",
 	})
 	void isLatitudeValidInt_shouldReturn_false(String arg1, Boolean arg2) {
 		ConfigError parserTest = new ConfigError();
@@ -168,6 +174,8 @@ class ConfigErrorTest {
 	@CsvSource({
 		"Baloon B1 67 14 2147483649,false",
 		"JetPlane B1 16 1 -2147483649 ,false",
+		"JetPlane B1 16 1 qwer,false",
+		"JetPlane B1 16 1 2147483et,false",
 	})
 	void isHeightValidInt_shouldReturn_false(String arg1, Boolean arg2) {
 		ConfigError parserTest = new ConfigError();
