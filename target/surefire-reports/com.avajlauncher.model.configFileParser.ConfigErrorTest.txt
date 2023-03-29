@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.avajlauncher.model.configFileParser.ConfigErrorTest
--------------------------------------------------------------------------------
-Tests run: 62, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.183 s - in com.avajlauncher.model.configFileParser.ConfigErrorTest

@@ -15,11 +15,16 @@ public class Tower {
 
 	public void unregister(Flyable p_flyable) {
 		this.observers.remove(p_flyable);
+		System.out.println(
+			"Tower says: "
+			+ ((Aircraft)p_flyable).getIndentifier()
+			+ " unregistered from weather tower."
+		);
 	}
 
 	public void conditionChanged() {
-		for (Flyable flyable: observers) {
-			flyable.updateConditions();
+		for (int i = 0; i < observers.size(); i++) {
+			this.observers.get(i).updateConditions();
 		}
 	}
 
@@ -38,14 +43,5 @@ public class Tower {
 			}
 		}
 		return (true);
-	}
-
-	public void printAicrafts() {
-		for (Flyable flyable: observers) {
-			if (flyable instanceof Aircraft) {
-				Aircraft test = (Aircraft) flyable;
-				test.printData();
-			}
-		}
 	}
 }

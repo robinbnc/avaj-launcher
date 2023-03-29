@@ -31,8 +31,4 @@ public class Aircraft {
 	public String getIndentifier() {
 		return ("");
 	}
-	// Delete
-	public void printData() {
-		System.out.println("id: " + id + " name: " + name + " longitude " + coordinates.getLongitude() + " latitude " + coordinates.getLatitude() + " height " + coordinates.getHeight());
-	}
 }

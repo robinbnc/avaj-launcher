@@ -12,10 +12,13 @@ import com.avajlauncher.model.aircraft.JetPlane;
 import com.avajlauncher.model.aircraft.Helicopter;
 import com.avajlauncher.model.coordinates.Coordinates;
 import com.avajlauncher.model.tower.WeatherTower;
+import com.avajlauncher.utils.RedirectStdOut;
 
 public class SimulationControllerFactoryTest {
 	@Test
 	void testNewSimulationControllerSuccess() {
+		RedirectStdOut redirectOut = new RedirectStdOut();
+		redirectOut.redirectOutToFile("nul");
 		try {
 			SimulationControllerFactory scFactory = new SimulationControllerFactory("./src/test/java/com/avajlauncher/controller/configFilesTest/succesConfig0.txt");
 			SimulationController simulationController = scFactory.newSimulationController();
@@ -29,6 +32,7 @@ public class SimulationControllerFactoryTest {
 			weatherTower.register(new Baloon(6, "B3", new Coordinates(102, 22, 34)));
 			weatherTower.register(new JetPlane(7, "J2", new Coordinates(11, 99, 768)));
 			weatherTower.register(new Helicopter(8, "H4", new Coordinates(223, 23, 54)));
+			redirectOut.resetStdOutToConsole();
 
 			assertTrue(
 				simulationController.simulationTime == 25
@@ -36,6 +40,7 @@ public class SimulationControllerFactoryTest {
 			);
 		}
 		catch ( Exception e ) {
+			redirectOut.resetStdOutToConsole();
 			fail("Failed creation Simulation Controller");
 		}
 	}
@@ -49,12 +54,16 @@ public class SimulationControllerFactoryTest {
 		"./src/test/java/com/avajlauncher/controller/configFilesTest/emptyFile.txt",
 	})
 	void testNewSimulationControllerErrorOnInputFile(String arg1) {
+		RedirectStdOut redirectOut = new RedirectStdOut();
+		redirectOut.redirectOutToFile("nul");
 		try {
 			SimulationControllerFactory scFactory = new SimulationControllerFactory(arg1);
 			SimulationController simulationController = scFactory.newSimulationController();
+			redirectOut.resetStdOutToConsole();
 			fail("Error: An exception should be thrown.");
 		}
 		catch ( Exception e ) {
+			redirectOut.resetStdOutToConsole();
 			assertTrue(true);
 		}
 	}
@@ -70,12 +79,16 @@ public class SimulationControllerFactoryTest {
 		"./src/test/java/com/avajlauncher/controller/configFilesTest/notArealConfigFile.cpp"
 	})
 	void testNewSimulationControllerErrorSimulationLine(String arg1) {
+		RedirectStdOut redirectOut = new RedirectStdOut();
+		redirectOut.redirectOutToFile("nul");
 		try {
 			SimulationControllerFactory scFactory = new SimulationControllerFactory(arg1);
 			SimulationController simulationController = scFactory.newSimulationController();
+			redirectOut.resetStdOutToConsole();
 			fail("Error: An exception should be thrown.");
 		}
 		catch ( Exception e ) {
+			redirectOut.resetStdOutToConsole();
 			assertTrue(true);
 		}
 	}
@@ -92,12 +105,16 @@ public class SimulationControllerFactoryTest {
 		"./src/test/java/com/avajlauncher/controller/configFilesTest/errorConfigOnAircraftLine5.txt",
 	})
 	void testNewSimulationControllerErrorAircraftLine(String arg1) {
+		RedirectStdOut redirectOut = new RedirectStdOut();
+		redirectOut.redirectOutToFile("nul");
 		try {
 			SimulationControllerFactory scFactory = new SimulationControllerFactory(arg1);
 			SimulationController simulationController = scFactory.newSimulationController();
+			redirectOut.resetStdOutToConsole();
 			fail("Error: An exception should be thrown.");
 		}
 		catch ( Exception e ) {
+			redirectOut.resetStdOutToConsole();
 			assertTrue(true);
 		}
 	}

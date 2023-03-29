@@ -2,7 +2,7 @@ package com.avajlauncher.model.aircraft;
 
 import com.avajlauncher.model.coordinates.Coordinates;
 import com.avajlauncher.model.tower.WeatherTower;
-
+import com.avajlauncher.utils.RedirectStdOut;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -58,10 +58,13 @@ class JetPlaneTest {
 	void testGetWeatherMessage(int arg1, int arg2, int arg3,
 							   int expect1, int expect2, int expect3)
 	{
+		RedirectStdOut redirectOut = new RedirectStdOut();
+		redirectOut.redirectOutToFile("nul");
 		JetPlane JetPlaneTest =
 			new JetPlane(0, "JetPlanee#B1", new Coordinates(arg1, arg2, arg3));
 		JetPlaneTest.registerTower(new WeatherTower());
 		JetPlaneTest.updateConditions();
+		redirectOut.resetStdOutToConsole();
 		Coordinates testCoordinates = JetPlaneTest.coordinates;
 		assertTrue(testCoordinates.getLongitude() == expect1 &&
 			testCoordinates.getLatitude() == expect2 &&

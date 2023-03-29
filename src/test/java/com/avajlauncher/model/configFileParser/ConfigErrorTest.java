@@ -24,6 +24,19 @@ class ConfigErrorTest {
 		assertEquals(arg2, parserTest.isNumberOfTokenInSimulationLineCorrect());
 	}
 
+	@ParameterizedTest(name = "isLongitudeValidInt_shouldReturn_false() should equal to 1")
+	@CsvSource({
+		"2147483649,false",
+		"-2147483649,false",
+	})
+	void isSimulationTimeValidInt_shouldReturn_false(String arg1, Boolean arg2) {
+		ConfigError parserTest = new ConfigError();
+
+		parserTest.setLine(arg1);
+		parserTest.tokenizeAirCraftLine();
+		assertEquals(arg2, parserTest.isLongitudeValidInt());
+	}
+
 	@ParameterizedTest(name = "isNumberOfTokenInAircraftLineCorrect() should equal to 1")
 	@CsvSource({
 		"1,true",
@@ -125,6 +138,45 @@ class ConfigErrorTest {
 		assertEquals(arg2, parserTest.isLatitudePositive());
 	}
 
+	@ParameterizedTest(name = "isLongitudeValidInt_shouldReturn_false() should equal to 1")
+	@CsvSource({
+		"Baloon B1 2147483649 67 14,false",
+		"JetPlane B1 -2147483649 16 1,false",
+	})
+	void isLongitudeValidInt_shouldReturn_false(String arg1, Boolean arg2) {
+		ConfigError parserTest = new ConfigError();
+
+		parserTest.setLine(arg1);
+		parserTest.tokenizeAirCraftLine();
+		assertEquals(arg2, parserTest.isLongitudeValidInt());
+	}
+
+	@ParameterizedTest(name = "isLatitudeValidInt_shouldReturn_false() should equal to 1")
+	@CsvSource({
+		"Baloon B1 67 2147483649 14,false",
+		"JetPlane B1 16 -2147483649 1,false",
+	})
+	void isLatitudeValidInt_shouldReturn_false(String arg1, Boolean arg2) {
+		ConfigError parserTest = new ConfigError();
+
+		parserTest.setLine(arg1);
+		parserTest.tokenizeAirCraftLine();
+		assertEquals(arg2, parserTest.isLatitudeValidInt());
+	}
+
+	@ParameterizedTest(name = "isHeightValidInt_shouldReturn_false() should equal to 1")
+	@CsvSource({
+		"Baloon B1 67 14 2147483649,false",
+		"JetPlane B1 16 1 -2147483649 ,false",
+	})
+	void isHeightValidInt_shouldReturn_false(String arg1, Boolean arg2) {
+		ConfigError parserTest = new ConfigError();
+
+		parserTest.setLine(arg1);
+		parserTest.tokenizeAirCraftLine();
+		assertEquals(arg2, parserTest.isHeightValidInt());
+	}
+
 	@ParameterizedTest(name = "isNumberOfTokenInAircraftLineCorrect() should equal to 1")
 	@CsvSource({
 		"Baloon B1 534 87 14,true",
@@ -136,7 +188,6 @@ class ConfigErrorTest {
 		"Baloon B1 13232 134 -9584,false",
 		"JetPlane B1 1234121 67 -42, false",
 		"Helicopter H4 813742 85613 -857,false",
-
 	})
 	void testIsHeightPositive(String arg1, Boolean arg2) {
 		ConfigError parserTest = new ConfigError();

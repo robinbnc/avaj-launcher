@@ -2,6 +2,7 @@ package com.avajlauncher.model.aircraft;
 
 import com.avajlauncher.model.coordinates.Coordinates;
 import com.avajlauncher.model.tower.WeatherTower;
+import com.avajlauncher.utils.*;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -55,11 +56,14 @@ class BaloonTest {
 	void testGetWeatherMessage(int arg1, int arg2, int arg3,
 							   int expect1, int expect2, int expect3)
 	{
+		RedirectStdOut redirectOut = new RedirectStdOut();
+		redirectOut.redirectOutToFile("nul");
 		Baloon baloonTest =
 			new Baloon(0, "Baloone#B1", new Coordinates(arg1, arg2, arg3));
 		baloonTest.registerTower(new WeatherTower());
 		baloonTest.updateConditions();
 		Coordinates testCoordinates = baloonTest.coordinates;
+		redirectOut.resetStdOutToConsole();
 		assertTrue(testCoordinates.getLongitude() == expect1 &&
 			testCoordinates.getLatitude() == expect2 &&
 			testCoordinates.getHeight() == expect3
